@@ -1,9 +1,13 @@
-# 📊 Project Timeline Dashboard
+# 📊 Opdark Project Timeline Dashboard
 
 An interactive, visual dashboard for tracking multiple projects, their timelines, and milestones. Built with vanilla JavaScript and Chart.js for a clean, dependency-free experience.
 
+## 🌐 Live Demo
+**[View Live Dashboard →](https://opdark.github.io/projects/)**
+
 ![Project Dashboard](https://img.shields.io/badge/status-active-success)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://opdark.github.io/projects/)
 
 ## ✨ Features
 
@@ -159,13 +163,14 @@ Categories are automatically detected from your projects. Simply use consistent 
 
 ## 🌐 GitHub Pages Deployment
 
-This repository is ready for GitHub Pages:
+✅ **Already Deployed!** The dashboard is live at: **https://opdark.github.io/projects/**
 
-1. Go to repository Settings
-2. Navigate to Pages section
-3. Select "Deploy from a branch"
-4. Choose "main" branch and "/" (root) folder
-5. Your site will be live at: `https://opdark.github.io/projects/`
+This repository is configured for automatic GitHub Pages deployment:
+
+1. ✅ Repository Settings → Pages section configured
+2. ✅ Deploying from "main" branch "/" (root) folder
+3. ✅ Site is live and auto-updates on pushes to main
+4. 🚀 **[Access the live dashboard here →](https://opdark.github.io/projects/)**
 
 ## 📝 License
 

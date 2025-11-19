@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Timeline - Interactive Dashboard</title>
+    <title>Opdark Project Timeline Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.1/dist/chartjs-adapter-luxon.umd.min.js"></script>
@@ -15,71 +15,75 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
+            padding: 16px;
             min-height: 100vh;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.25);
             overflow: hidden;
         }
         
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px;
+            padding: 24px;
             text-align: center;
         }
         
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            font-weight: 600;
         }
         
         .header p {
-            font-size: 1.1em;
-            opacity: 0.95;
+            font-size: 1em;
+            opacity: 0.9;
+            font-weight: 300;
         }
         
         .chart-container {
-            padding: 30px;
+            padding: 20px;
             background: #f8f9fa;
         }
         
         .canvas-wrapper {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
             cursor: pointer;
+            max-height: 400px;
         }
         
         .legend {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+            padding: 16px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
         }
         
         .legend-item {
             display: flex;
             align-items: center;
-            padding: 10px;
+            padding: 8px 10px;
             background: #f8f9fa;
-            border-radius: 8px;
+            border-radius: 6px;
             transition: all 0.3s;
             cursor: pointer;
+            font-size: 0.9em;
         }
         
         .legend-item:hover {
@@ -118,18 +122,18 @@
         
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
             background: white;
         }
         
         .stat-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transition: transform 0.2s;
         }
         
@@ -139,17 +143,17 @@
         }
         
         .stat-card h3 {
-            font-size: 0.9em;
+            font-size: 0.8em;
             opacity: 0.9;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         
         .stat-card .value {
-            font-size: 2.5em;
+            font-size: 1.8em;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         /* Modal Styles */
@@ -178,12 +182,12 @@
 
         .modal-content {
             background: white;
-            border-radius: 15px;
-            max-width: 800px;
-            width: 90%;
-            max-height: 85vh;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 88%;
+            max-height: 75vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
             animation: slideUp 0.3s;
         }
 
@@ -199,36 +203,37 @@
         }
 
         .modal-header {
-            padding: 30px;
+            padding: 20px 24px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 15px 15px 0 0;
+            border-radius: 12px 12px 0 0;
             position: relative;
         }
 
         .modal-header h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
+            font-size: 1.6em;
+            margin-bottom: 8px;
+            line-height: 1.2;
         }
 
         .modal-header .category-badge {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            margin-top: 10px;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            margin-top: 6px;
         }
 
         .close-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2em;
+            top: 16px;
+            right: 16px;
+            font-size: 1.8em;
             color: white;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -242,59 +247,62 @@
         }
 
         .modal-body {
-            padding: 30px;
+            padding: 20px 24px 24px;
         }
 
         .project-info {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .info-card {
             background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border-left: 2px solid #667eea;
         }
 
         .info-card label {
             display: block;
-            font-size: 0.85em;
+            font-size: 0.75em;
             color: #666;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
         .info-card .value {
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: 600;
             color: #333;
+            line-height: 1.2;
         }
 
         .description {
             background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border-left: 4px solid #764ba2;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 3px solid #764ba2;
         }
 
         .description h3 {
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             color: #333;
+            font-size: 1.1em;
         }
 
         .description p {
             color: #666;
-            line-height: 1.6;
+            line-height: 1.4;
+            font-size: 0.9em;
         }
 
         .milestones-section h3 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            font-size: 1.2em;
+            margin-bottom: 12px;
             color: #333;
             display: flex;
             align-items: center;
@@ -302,15 +310,16 @@
 
         .milestones-section h3::before {
             content: "🎯";
-            margin-right: 10px;
+            margin-right: 8px;
+            font-size: 0.9em;
         }
 
         .milestone {
             background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -322,56 +331,58 @@
             left: 0;
             top: 0;
             height: 100%;
-            width: 4px;
+            width: 3px;
             background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
         }
 
         .milestone:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transform: translateX(3px);
         }
 
         .milestone-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .milestone-title {
-            font-size: 1.1em;
+            font-size: 0.95em;
             font-weight: 600;
             color: #333;
             flex: 1;
+            line-height: 1.3;
         }
 
         .milestone-date {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85em;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
             font-weight: 600;
             white-space: nowrap;
-            margin-left: 15px;
+            margin-left: 10px;
         }
 
         .milestone-description {
             color: #666;
-            line-height: 1.5;
-            margin-bottom: 10px;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            font-size: 0.85em;
         }
 
         .milestone-meta {
             display: flex;
-            gap: 10px;
+            gap: 6px;
             flex-wrap: wrap;
         }
 
         .milestone-badge {
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8em;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
             font-weight: 500;
         }
 
@@ -384,30 +395,31 @@
 
         .no-milestones {
             text-align: center;
-            padding: 40px;
+            padding: 24px;
             color: #999;
             font-style: italic;
+            font-size: 0.9em;
         }
 
         .progress-bar {
             background: #e9ecef;
-            height: 8px;
-            border-radius: 10px;
-            margin-top: 20px;
+            height: 6px;
+            border-radius: 8px;
+            margin-top: 12px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
+            border-radius: 8px;
             transition: width 0.5s ease;
         }
 
         .progress-label {
             text-align: center;
-            margin-top: 10px;
-            font-size: 0.9em;
+            margin-top: 6px;
+            font-size: 0.8em;
             color: #666;
             font-weight: 600;
         }
@@ -452,7 +464,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📊 Project Timeline Dashboard</h1>
+            <h1>📊 Opdark Project Timeline Dashboard</h1>
             <p>Complete overview of all ongoing and upcoming projects</p>
         </div>
         
