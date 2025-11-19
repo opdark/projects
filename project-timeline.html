@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Timeline - Gantt Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.1/dist/chartjs-adapter-luxon.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .chart-container {
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .canvas-wrapper {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .legend-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+            border: 2px solid #ddd;
+        }
+        
+        .legend-text {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: white;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stat-card h3 {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .chart-container {
+                padding: 15px;
+            }
+            
+            .legend {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Project Timeline Dashboard</h1>
+            <p>Complete overview of all ongoing and upcoming projects</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Projects</h3>
+                <div class="value">9</div>
+            </div>
+            <div class="stat-card">
+                <h3>Active Projects</h3>
+                <div class="value">3</div>
+            </div>
+            <div class="stat-card">
+                <h3>Timeline Span</h3>
+                <div class="value">11 Months</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="canvas-wrapper">
+                <canvas id="ganttChart"></canvas>
+            </div>
+            
+            <div class="legend" id="projectLegend"></div>
+        </div>
+    </div>
+
+    <script>
+        // Project data with colors
+        const projects = [
+            {
+                name: 'RentRight App',
+                start: '2025-11-01',
+                end: '2025-12-31',
+                color: '#FF6B6B',
+                milestones: []
+            },
+            {
+                name: 'Crypto App',
+                start: '2025-11-01',
+                end: '2025-11-30',
+                color: '#4ECDC4',
+                milestones: []
+            },
+            {
+                name: 'Opdark Website',
+                start: '2025-11-01',
+                end: '2025-11-30',
+                color: '#45B7D1',
+                milestones: []
+            },
+            {
+                name: 'Landed Property Mgmt.',
+                start: '2026-01-01',
+                end: '2026-06-30',
+                color: '#96CEB4',
+                milestones: []
+            },
+            {
+                name: 'Poultry App',
+                start: '2026-01-01',
+                end: '2026-03-31',
+                color: '#FFEAA7',
+                milestones: []
+            },
+            {
+                name: 'Poultry Farm',
+                start: '2025-11-01',
+                end: '2026-09-30',
+                color: '#DFE6E9',
+                milestones: [
+                    { date: '2026-06-30', label: 'Building Complete' },
+                    { date: '2026-09-30', label: 'Start with Birds' }
+                ]
+            },
+            {
+                name: 'Cow Farm',
+                start: '2025-12-01',
+                end: '2026-09-30',
+                color: '#A29BFE',
+                milestones: [
+                    { date: '2025-12-25', label: 'Initial Finance' },
+                    { date: '2026-02-25', label: 'Complete Purchase' },
+                    { date: '2026-04-30', label: 'Land Acquired' },
+                    { date: '2026-08-30', label: 'Structures Ready' },
+                    { date: '2026-09-30', label: 'Cows to Ghana' }
+                ]
+            },
+            {
+                name: 'Togo Land Purchase',
+                start: '2026-01-01',
+                end: '2026-05-30',
+                color: '#FD79A8',
+                milestones: []
+            },
+            {
+                name: 'Togo Farming',
+                start: '2026-02-01',
+                end: '2026-09-30',
+                color: '#FDCB6E',
+                milestones: [
+                    { date: '2026-02-28', label: 'Research Complete' },
+                    { date: '2026-06-30', label: 'MVP App Ready' },
+                    { date: '2026-09-30', label: 'Secure Resources' }
+                ]
+            }
+        ];
+
+        // Prepare data for Chart.js
+        const chartData = {
+            datasets: projects.map(project => ({
+                label: project.name,
+                data: [{
+                    x: [new Date(project.start), new Date(project.end)],
+                    y: project.name
+                }],
+                backgroundColor: project.color,
+                borderColor: project.color,
+                borderWidth: 2,
+                borderRadius: 5,
+                barThickness: 30
+            }))
+        };
+
+        // Create the chart
+        const ctx = document.getElementById('ganttChart').getContext('2d');
+        const ganttChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Project Timeline (November 2025 - September 2026)',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                        padding: 20
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const project = projects[context.datasetIndex];
+                                const start = new Date(project.start).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+                                const end = new Date(project.end).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+                                
+                                let tooltip = [`${project.name}`, `Start: ${start}`, `End: ${end}`];
+                                
+                                if (project.milestones.length > 0) {
+                                    tooltip.push('', 'Milestones:');
+                                    project.milestones.forEach(m => {
+                                        const mDate = new Date(m.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+                                        tooltip.push(`  • ${mDate}: ${m.label}`);
+                                    });
+                                }
+                                
+                                return tooltip;
+                            }
+                        },
+                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                        padding: 15,
+                        titleFont: {
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 12
+                        },
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'month',
+                            displayFormats: {
+                                month: 'MMM yyyy'
+                            }
+                        },
+                        min: '2025-11-01',
+                        max: '2026-09-30',
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            font: {
+                                size: 11,
+                                weight: '500'
+                            }
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 12,
+                                weight: '600'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Set chart height based on number of projects
+        document.getElementById('ganttChart').style.height = (projects.length * 60 + 100) + 'px';
+
+        // Generate legend
+        const legendContainer = document.getElementById('projectLegend');
+        projects.forEach(project => {
+            const legendItem = document.createElement('div');
+            legendItem.className = 'legend-item';
+            
+            const duration = Math.ceil((new Date(project.end) - new Date(project.start)) / (1000 * 60 * 60 * 24 * 30));
+            
+            legendItem.innerHTML = `
+                <div class="legend-color" style="background-color: ${project.color}"></div>
+                <div class="legend-text">
+                    ${project.name}<br>
+                    <small style="color: #666;">${duration} month${duration > 1 ? 's' : ''}</small>
+                </div>
+            `;
+            legendContainer.appendChild(legendItem);
+        });
+    </script>
+</body>
+</html>

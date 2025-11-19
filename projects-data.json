@@ -1,0 +1,201 @@
+{
+  "projects": [
+    {
+      "id": "rentright",
+      "name": "RentRight App",
+      "description": "Rental platform focused on ACT 220 compliance and transparent rental practices",
+      "start": "2025-11-01",
+      "end": "2025-12-31",
+      "color": "#FF6B6B",
+      "category": "Software Development",
+      "milestones": []
+    },
+    {
+      "id": "crypto",
+      "name": "Crypto App",
+      "description": "Cryptocurrency application development",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "color": "#4ECDC4",
+      "category": "Software Development",
+      "milestones": []
+    },
+    {
+      "id": "opdark-website",
+      "name": "Opdark Website",
+      "description": "Corporate website for Opdark Digital World",
+      "start": "2025-11-01",
+      "end": "2025-11-30",
+      "color": "#45B7D1",
+      "category": "Software Development",
+      "milestones": []
+    },
+    {
+      "id": "property-mgmt",
+      "name": "Landed Property Mgmt. App",
+      "description": "Property management application",
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "color": "#96CEB4",
+      "category": "Software Development",
+      "milestones": []
+    },
+    {
+      "id": "poultry-app",
+      "name": "Poultry App",
+      "description": "Application for poultry farm management",
+      "start": "2026-01-01",
+      "end": "2026-03-31",
+      "color": "#FFEAA7",
+      "category": "Software Development",
+      "milestones": []
+    },
+    {
+      "id": "poultry-farm",
+      "name": "Poultry Farm",
+      "description": "Physical poultry farm establishment and operations",
+      "start": "2025-11-01",
+      "end": "2026-09-30",
+      "color": "#DFE6E9",
+      "category": "Agriculture",
+      "milestones": [
+        {
+          "id": "pf-invest",
+          "date": "2025-11-01",
+          "title": "Monthly Investment Begins",
+          "description": "Invest 2.5K per person for building (recurring monthly)",
+          "type": "recurring",
+          "status": "in-progress"
+        },
+        {
+          "id": "pf-building",
+          "date": "2026-06-30",
+          "title": "Building & Structures Complete",
+          "description": "Complete all construction work for the poultry farm buildings and structures",
+          "type": "major",
+          "status": "pending"
+        },
+        {
+          "id": "pf-birds",
+          "date": "2026-09-30",
+          "title": "Start with Birds",
+          "description": "Begin poultry operations with initial batch of birds",
+          "type": "major",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "cow-farm",
+      "name": "Cow Farm",
+      "description": "Cattle farming venture with land acquisition and setup",
+      "start": "2025-12-01",
+      "end": "2026-09-30",
+      "color": "#A29BFE",
+      "category": "Agriculture",
+      "milestones": [
+        {
+          "id": "cf-initial-finance",
+          "date": "2025-12-25",
+          "title": "Initial Financing for Cows Purchase",
+          "description": "Initial investment of 6K per person for cow acquisition",
+          "type": "financial",
+          "status": "pending"
+        },
+        {
+          "id": "cf-complete-purchase",
+          "date": "2026-02-25",
+          "title": "Complete Cow Purchase",
+          "description": "Final payment of 15K per person to complete cow acquisition",
+          "type": "financial",
+          "status": "pending"
+        },
+        {
+          "id": "cf-land",
+          "date": "2026-04-30",
+          "title": "Complete Land Acquisition",
+          "description": "Finalize acquisition of 4 acres of land at Nkyenoa",
+          "type": "major",
+          "status": "pending"
+        },
+        {
+          "id": "cf-structures",
+          "date": "2026-08-30",
+          "title": "Setup Structures Complete",
+          "description": "Complete all infrastructure and structures for the cow farm",
+          "type": "major",
+          "status": "pending"
+        },
+        {
+          "id": "cf-import",
+          "date": "2026-09-30",
+          "title": "Bring Cows to Ghana",
+          "description": "Import and settle cows at the Ghana farm location",
+          "type": "major",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "togo-land",
+      "name": "Togo Land Purchase",
+      "description": "Land acquisition in Togo for agricultural purposes",
+      "start": "2026-01-01",
+      "end": "2026-05-30",
+      "color": "#FD79A8",
+      "category": "Investment",
+      "milestones": [
+        {
+          "id": "tl-invest",
+          "date": "2026-01-01",
+          "title": "Monthly Investment to J.P.",
+          "description": "Invest 50K per person monthly to J.P. (recurring)",
+          "type": "recurring",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "togo-farming",
+      "name": "Togo Farming",
+      "description": "Agricultural operations and farmer network in Togo",
+      "start": "2026-02-01",
+      "end": "2026-09-30",
+      "color": "#FDCB6E",
+      "category": "Agriculture",
+      "milestones": [
+        {
+          "id": "tf-research",
+          "date": "2026-02-28",
+          "title": "Crop Research Complete",
+          "description": "Understand various crops, production and investment processes",
+          "type": "research",
+          "status": "pending"
+        },
+        {
+          "id": "tf-mvp",
+          "date": "2026-06-30",
+          "title": "MVP App Complete",
+          "description": "Complete MVP application to be used by farmers",
+          "type": "major",
+          "status": "pending"
+        },
+        {
+          "id": "tf-resources",
+          "date": "2026-09-30",
+          "title": "Secure Resources",
+          "description": "Secure lands, farmers & buyers for operations",
+          "type": "major",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2025-11-18",
+    "totalProjects": 9,
+    "timelineStart": "2025-11-01",
+    "timelineEnd": "2026-09-30",
+    "categories": ["Software Development", "Agriculture", "Investment"]
+  }
+}
